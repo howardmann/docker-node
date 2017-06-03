@@ -42,8 +42,14 @@ app.post('/vote', urlencodedParser, function(req, res) {
   var vote = req.body.yourVote;
   if(vote === 'sandwiches') {
     votes.sandwiches = votes.sandwiches + 1;
+    client.query('UPDATE votes set number_of_votes=' + votes.sandwiches + ' where option_name=\'sandwiches\'', function(err, result){
+      if (err) throw err;
+    })
   } else if(vote === 'tacos') {
     votes.tacos = votes.tacos + 1;
+    client.query('UPDATE votes set number_of_votes=' + votes.tacos + ' where option_name=\'tacos\'', function(err, result){
+      if (err) throw err;
+    })
   } else {
     console.log('Something went wrong: vote contains ' + vote);
   }
